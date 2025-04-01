@@ -258,7 +258,7 @@ set (NSYNC_COMMON_SRC
 	"internal/wait.c"
 )
 
-add_library (nsync ${NSYNC_COMMON_SRC} ${NSYNC_OS_SRC})
+add_library (nsync STATIC ${NSYNC_COMMON_SRC} ${NSYNC_OS_SRC})
 set_target_properties (nsync PROPERTIES
 	VERSION ${PROJECT_VERSION}
 	SOVERSION ${PROJECT_VERSION_MAJOR})
