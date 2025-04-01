@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8.12)
+cmake_minimum_required (VERSION 3.10)
 
 # nsync provides portable synchronization primitives, such as mutexes and
 # condition variables.
@@ -282,12 +282,12 @@ foreach (s IN ITEMS ${NSYNC_COMMON_SRC} ${NSYNC_OS_CPP_SRC})
 	)
 endforeach (s)
 
-add_library (nsync_cpp ${NSYNC_CPP_SRC_COPY})
-set_target_properties (nsync_cpp PROPERTIES
-	VERSION ${PROJECT_VERSION}
-	SOVERSION ${PROJECT_VERSION_MAJOR})
+# add_library (nsync_cpp ${NSYNC_CPP_SRC_COPY})
+# set_target_properties (nsync_cpp PROPERTIES
+# 	VERSION ${PROJECT_VERSION}
+# 	SOVERSION ${PROJECT_VERSION_MAJOR})
 
-set_cpp_target (nsync_cpp "${NSYNC_CPP_SRC_COPY}")
+# set_cpp_target (nsync_cpp "${NSYNC_CPP_SRC_COPY}")
 
 
 if (NSYNC_ENABLE_TESTS)
@@ -365,23 +365,23 @@ if (NSYNC_ENABLE_TESTS)
 		add_test (NAME ${t} COMMAND ${t})
 		add_dependencies (test_c ${t})
 
-		add_custom_command (
-			OUTPUT cpp/testing/${t}.c
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/testing/${t}.c cpp/testing/${t}.c
-			DEPENDS ${PROJECT_SOURCE_DIR}/testing/${t}.c
-		)
+		# add_custom_command (
+		# 	OUTPUT cpp/testing/${t}.c
+		# 	COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/testing/${t}.c cpp/testing/${t}.c
+		# 	DEPENDS ${PROJECT_SOURCE_DIR}/testing/${t}.c
+		# )
 
-		set (NSYNC_TEST_CPP_SRC ${NSYNC_TEST_CPP_SRC}
-			cpp/testing/${t}.c
-		)
-		add_executable (${t}_cpp "cpp/testing/${t}.c")
-		set_cpp_target (${t}_cpp "cpp/testing/${t}.c")
-		target_include_directories (${t}_cpp PUBLIC
-			"${PROJECT_SOURCE_DIR}/testing"
-		)
-		target_link_libraries (${t}_cpp nsync_test_cpp nsync_cpp)
-		add_test (NAME ${t}_cpp COMMAND ${t}_cpp)
-		add_dependencies (test_cpp ${t}_cpp)
+		# set (NSYNC_TEST_CPP_SRC ${NSYNC_TEST_CPP_SRC}
+		# 	cpp/testing/${t}.c
+		# )
+		# add_executable (${t}_cpp "cpp/testing/${t}.c")
+		# set_cpp_target (${t}_cpp "cpp/testing/${t}.c")
+		# target_include_directories (${t}_cpp PUBLIC
+		# 	"${PROJECT_SOURCE_DIR}/testing"
+		# )
+		# target_link_libraries (${t}_cpp nsync_test_cpp nsync_cpp)
+		# add_test (NAME ${t}_cpp COMMAND ${t}_cpp)
+		# add_dependencies (test_cpp ${t}_cpp)
 	endforeach (t)
 
 	find_package (Threads REQUIRED)
@@ -404,15 +404,15 @@ install (TARGETS nsync EXPORT nsync
 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT RuntimeLibraries
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
 
-install (TARGETS nsync_cpp EXPORT nsync_cpp OPTIONAL
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT RuntimeLibraries
-	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
+# install (TARGETS nsync_cpp EXPORT nsync_cpp OPTIONAL
+# 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT RuntimeLibraries
+# 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
 
 set (NSYNC_INCLUDES
 	"public/nsync.h"
 	"public/nsync_atomic.h"
 	"public/nsync_counter.h"
-	"public/nsync_cpp.h"
+	# "public/nsync_cpp.h"
 	"public/nsync_cv.h"
 	"public/nsync_debug.h"
 	"public/nsync_mu.h"
@@ -434,6 +434,6 @@ install(EXPORT nsync
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/nsync
         FILE        nsyncConfig.cmake)
 
-install(EXPORT nsync_cpp
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/nsync_cpp
-        FILE        nsync_cppConfig.cmake)
+# install(EXPORT nsync_cpp
+#         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/nsync_cpp
+#         FILE        nsync_cppConfig.cmake)
