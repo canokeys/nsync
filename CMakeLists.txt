@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.10)
+cmake_minimum_required (VERSION 3.20)
 
 # nsync provides portable synchronization primitives, such as mutexes and
 # condition variables.
