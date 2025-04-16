@@ -24,12 +24,12 @@ struct nsync_thd_args {
 static DWORD WINAPI body (void *v) {
 	struct nsync_thd_args *args = (struct nsync_thd_args *) v;
 	(*args->f) (args->arg);
-	free (args);
+	nsync_free (args);
 	return (0);
 }
 
 void nsync_start_thread_ (void (*f) (void *), void *arg) {
-	struct nsync_thd_args *args = (struct nsync_thd_args *) malloc (sizeof (*args));
+	struct nsync_thd_args *args = (struct nsync_thd_args *) nsync_malloc (sizeof (*args));
 	HANDLE t;
 	args->f = f;
 	args->arg = arg;

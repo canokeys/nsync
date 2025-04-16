@@ -34,7 +34,7 @@ struct nsync_counter_s_ {
 };
 
 nsync_counter nsync_counter_new (uint32_t value) {
-	nsync_counter c = (nsync_counter) malloc (sizeof (*c));
+	nsync_counter c = (nsync_counter) nsync_malloc (sizeof (*c));
 	if (c != NULL) {
 		memset ((void *) c, 0, sizeof (*c));
 		ATM_STORE (&c->value, value);
@@ -46,7 +46,7 @@ void nsync_counter_free (nsync_counter c) {
 	nsync_mu_lock (&c->counter_mu);
 	ASSERT (nsync_dll_is_empty_ (c->waiters));
 	nsync_mu_unlock (&c->counter_mu);
-	free (c);
+	nsync_free (c);
 }
 
 uint32_t nsync_counter_add (nsync_counter c, int32_t delta) {

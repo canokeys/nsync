@@ -23,6 +23,7 @@
 #include "dll.h"
 #include "nsync_mu.h"
 #include "nsync_note.h"
+#include "malloc.h"
 
 /* Annotations for race detectors. */
 #if defined(__has_feature) && !defined(__SANITIZE_THREAD__)

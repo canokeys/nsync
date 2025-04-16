@@ -415,6 +415,7 @@ set (NSYNC_INCLUDES
 	# "public/nsync_cpp.h"
 	"public/nsync_cv.h"
 	"public/nsync_debug.h"
+	"public/nsync_malloc.h"
 	"public/nsync_mu.h"
 	"public/nsync_mu_wait.h"
 	"public/nsync_note.h"

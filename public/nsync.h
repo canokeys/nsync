@@ -24,4 +24,6 @@
 #include "nsync_once.h"
 #include "nsync_debug.h"
 
+#include "nsync_malloc.h" // added by canokeys.org
+
 #endif /*NSYNC_PUBLIC_NSYNC_H_*/

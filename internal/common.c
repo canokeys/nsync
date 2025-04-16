@@ -166,6 +166,7 @@ static void waiter_destroy (void *v) {
    The intent is that the implicit NULL value here can be overridden by a
    client declaration that uses an initializer.  */
 void *(*nsync_malloc_ptr_) (size_t size);
+void (*nsync_free_ptr_) (void *ptr); // added by canokeys.org
 
 /* Return a pointer to an unused waiter struct.
    Ensures that the enclosed timer is stopped and its channel drained. */
@@ -192,7 +193,7 @@ waiter *nsync_waiter_new_ (void) {
 			if (nsync_malloc_ptr_ != NULL) { /* Use client's malloc() */
 				w = (waiter *) (*nsync_malloc_ptr_) (sizeof (*w));
 			} else {  /* standard malloc () */
-				w = (waiter *) malloc (sizeof (*w));
+				w = (waiter *) nsync_malloc (sizeof (*w));
 			}
 			w->tag = WAITER_TAG;
 			w->nw.tag = NSYNC_WAITER_TAG;

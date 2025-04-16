@@ -13,6 +13,7 @@
   limitations under the License. */
 
 #include "headers.h"
+#include "malloc.h"
 
 NSYNC_CPP_START_
 
@@ -24,12 +25,12 @@ struct thd_args {
 static void *body (void *v) {
 	struct thd_args *args = (struct thd_args *) v;
 	(*args->f) (args->arg);
-	free (args);
+	nsync_free (args);
 	return (NULL);
 }
 
 void nsync_start_thread_ (void (*f) (void *), void *arg) {
-	struct thd_args *args = (struct thd_args *) malloc (sizeof (*args));
+	struct thd_args *args = (struct thd_args *) nsync_malloc (sizeof (*args));
 	pthread_t t;
 	args->f = f;
 	args->arg = arg;

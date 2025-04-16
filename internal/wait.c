@@ -45,7 +45,7 @@ int nsync_wait_n (void *mu, void (*lock) (void *), void (*unlock) (void *),
 		struct nsync_waiter_s nw_set[4];
 		struct nsync_waiter_s *nw = nw_set;
 		if (count > (int) (sizeof (nw_set) / sizeof (nw_set[0]))) {
-			nw = (struct nsync_waiter_s *) malloc (count * sizeof (nw[0]));
+			nw = (struct nsync_waiter_s *) nsync_malloc (count * sizeof (nw[0]));
 		}
 		for (i = 0; i != count && enqueued; i++) {
 			nw[i].tag = NSYNC_WAITER_TAG;
@@ -89,7 +89,7 @@ int nsync_wait_n (void *mu, void (*lock) (void *), void (*unlock) (void *),
 		}
 
 		if (nw != nw_set) {
-			free (nw);
+			nsync_free (nw);
 		}
 		nsync_waiter_free_ (w);
 		if (unlocked) {
